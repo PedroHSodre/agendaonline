@@ -1,10 +1,24 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from '../App';
+import Login from '../pages/Login';
+import { ThemeProvider } from 'styled-components';
+import theme from '../styles/theme';
 
-describe('',() =>{
+const mockedUsedNavigate = jest.fn();
+
+jest.mock('react-router-dom', () => ({
+   ...jest.requireActual('react-router-dom') as any,
+  useNavigate: () => mockedUsedNavigate,
+}));
+
+describe('Login tests',() =>{
   it('renders login page title', () => {
-    render(<App />);
+    render(
+      <ThemeProvider theme={theme}>
+        <Login />
+      </ThemeProvider>
+    );
     
     const title = screen.getByText(/Minha Agenda/i);
     
@@ -12,7 +26,11 @@ describe('',() =>{
   });
 
   it('should render subtitle', () => {
-    render(<App />);
+    render(
+      <ThemeProvider theme={theme}>
+        <Login />
+      </ThemeProvider>
+    );
 
     const subtitle = screen.getByText(/Faça seu Login/i);
 
@@ -20,7 +38,11 @@ describe('',() =>{
   });
 
   it('should render email input', () => {
-    render(<App />);
+    render(
+      <ThemeProvider theme={theme}>
+        <Login />
+      </ThemeProvider>
+    );
 
     const emailLabel = screen.getByText(/Email/i);
     const emailInput = screen.getByTestId('login_email');
@@ -30,7 +52,11 @@ describe('',() =>{
   });
 
   it('should render password input', () => {
-    render(<App />);
+    render(
+      <ThemeProvider theme={theme}>
+        <Login />
+      </ThemeProvider>
+    );
 
     const passwordLabel = screen.getByText(/Senha/i);
     const passwordInput = screen.getByTestId('login_password');

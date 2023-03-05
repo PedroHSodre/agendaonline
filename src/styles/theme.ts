@@ -4,6 +4,7 @@ export default {
             BLUE: 'hsl(246, 80%, 60%)',
             LIGHT_RED: 'hsl(15, 100%, 70%)',
             SOFT_BLUE: 'hsl(195, 74%, 62%)',
+            SOFT_PALE_BLUE: 'rgba(90, 16, 210, 0.4)',
             LIME_GREEN: 'hsl(145, 58%, 55%)',
             VIOLET: 'hsl(264, 64%, 52%)',
             SOFT_ORANGE: 'hsl(43, 84%, 65%)',

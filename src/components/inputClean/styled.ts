@@ -12,10 +12,10 @@ export const Input = styled.input`
     background: transparent;
     color: ${props => props.theme.colors.PRIMARY.SOFT_BLUE};
     border: 1px solid #F5F5F5;
-    border-radius: 25px;
+    border-radius: 4px;
     outline-color: transparent;
     text-align: left;
-    padding-left: 16px;
+    padding: 0 16px;
 `
 
 export const Label = styled.label`

@@ -4,6 +4,7 @@ import InputClean from "../../../components/inputClean";
 import Button from "../../../components/button";
 import { useNavigate } from "react-router-dom";
 import { IAuthRequest } from "../../../types/auth";
+import api from "../../../configs/api";
 
 export default function LoginForm() {
     const [email, setEmail] = useState('');
@@ -17,7 +18,19 @@ export default function LoginForm() {
             password
         }
 
-        if(data.email && data.password) navigate('/home');
+        try {
+            const response = await api.post('/auth', data);
+
+            if(response.data) {
+                localStorage.setItem('agenda::user', response.data.data.user);
+                localStorage.setItem('agenda::token', response.data.data.token);
+
+                navigate('/home')
+            }
+        } catch(err) {
+            console.log(err);
+            alert("Erro");
+        }
     }
 
     return (

@@ -6,7 +6,6 @@ export const formatDateToAmericanDate = (dateString: string) => {
 
     const americanDateString = `${month}-${day}-${year} ${timePart}`;
  
-    console.log('americanDateString', americanDateString)
     return americanDateString
 }
 
@@ -18,4 +17,8 @@ export const  orderByDate = (items: IScheduleData[], order: 'asc' | 'desc') => {
     });
 
     return items;
-  }
+}
+
+export const formatToBrDate = (dateString: string) => {
+  
+}
