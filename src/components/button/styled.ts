@@ -12,7 +12,7 @@ export const Btn = styled.div`
     align-items: center;
 
     background: ${props => props.theme.colors.NEUTRAL.VERY_DARK_BLUE};
-    border-radius: 50px;
+    border-radius: 4px;
     color: #f5f5f5;
     border-color: transparent;
     cursor: pointer;

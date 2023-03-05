@@ -18,5 +18,21 @@ export const Container = styled.div`
 
 export const CalendarContainer = styled.div`
     height: 100%;
-    margin-top: 8px;
+    margin: 16px 8px;
+
+    .fc-scroller {
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+            border-radius: 50px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: ${props => props.theme.colors.PRIMARY.LIGHT};
+            border-radius: 20px;
+        }
+    }
 `

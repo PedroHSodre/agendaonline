@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import moment from 'moment';
 import FullCalendar from '@fullcalendar/react'; // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
@@ -7,18 +7,19 @@ import ptBRLocale from '@fullcalendar/core/locales/pt-br';
 
 import { CalendarContainer, Container } from "./styled";
 import { IScheduleData, IScheduleEvent } from '../../types/schedule';
-import agenda from '../../data/agenda';
 import { formatDateToAmericanDate, orderByDate } from '../../utils/date';
 import HeaderMenu from '../headerMenu';
+import { useSchedule } from '../../hooks/schedule';
 
 export default function({ page }: { page:  string}) {
     const [events, setEvents] = useState<IScheduleEvent[]>([]);
+    const { allSchedule } = useSchedule()
 
     useEffect(() => { 
         getData();
     }, []);
     
-    const getData = async () => getEvent(orderByDate(agenda, 'asc'));
+    const getData = async () => getEvent(orderByDate(allSchedule, 'asc'));
 
     const formatEvent = (schedule: IScheduleData[]) => schedule
         .map(item => (
