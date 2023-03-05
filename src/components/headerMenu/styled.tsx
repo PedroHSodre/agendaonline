@@ -9,8 +9,8 @@ export const HeaderMenu = styled.div`
     justify-content: space-evenly;
     align-items: center;
     width: 75%;
-    margin: 64px auto auto auto;
-    background-color: ${props => props.theme.colors.PRIMARY.VIOLET};
+    margin: 44px auto auto auto;
+    background: ${props => props.theme.colors.NEUTRAL.DARK_BLUE};   
     height: 66px;
     border-radius: 8px;
 
