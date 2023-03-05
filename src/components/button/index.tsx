@@ -3,12 +3,14 @@ import { Btn, Container } from "./styled"
 
 type Props = {
     text: string;
-    onClick: MouseEventHandler<HTMLDivElement>;
+    onClick?: MouseEventHandler<HTMLDivElement>;
+    style?: object
 }
 export default function Button(props: Props) {
+    const { style, ...restProps} = props;
     return (
-        <Container>
-            <Btn {...props}>
+        <Container style={style}>
+            <Btn {...restProps}>
                 {props.text}
             </Btn>
         </Container>
