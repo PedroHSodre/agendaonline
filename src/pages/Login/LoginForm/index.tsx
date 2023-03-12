@@ -5,6 +5,7 @@ import Button from "../../../components/button";
 import { useNavigate } from "react-router-dom";
 import { IAuthRequest } from "../../../types/auth";
 import api from "../../../configs/api";
+import { toast } from "react-toastify";
 
 export default function LoginForm() {
     const [email, setEmail] = useState('');
@@ -24,12 +25,12 @@ export default function LoginForm() {
             if(response.data) {
                 localStorage.setItem('agenda::user', response.data.data.user);
                 localStorage.setItem('agenda::token', response.data.data.token);
-
+                toast.success(response.data.message);
                 navigate('/home')
             }
-        } catch(err) {
+        } catch(err: any) {
             console.log(err);
-            alert("Erro");
+            toast.error(err.response.data.message);
         }
     }
 

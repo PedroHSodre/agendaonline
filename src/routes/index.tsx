@@ -5,6 +5,11 @@ import Home from "../pages/Home";
 import { ScheduleProvider } from "../hooks/schedule";
 import ManageSchedules from "../pages/ManageSchedules";
 import CreateNewSchedule from "../pages/CreateNewSchedule";
+import EditSchedule from "../pages/EditSchedule";
+import { PrivateOutlet } from "./privateRoute";
+import { ClientProvider } from "../hooks/client";
+import Clients from "../pages/Clients";
+import CreateNewClient from "../pages/CreateNewClient";
 
 export default function MainRoute() {
   return (
@@ -16,30 +21,56 @@ export default function MainRoute() {
                 <Login />
             } 
         />
-        <Route 
-            path="/home" 
+        <Route path="/" element={<PrivateOutlet />}>
+          <Route 
+              path="/home" 
+              element={
+                  <ScheduleProvider>
+                    <Home />
+                  </ScheduleProvider>
+              } 
+          />
+          <Route
+            path="/clients"
             element={
-                <ScheduleProvider>
-                  <Home />
-                </ScheduleProvider>
-            } 
-        />
-        <Route 
-            path="/manage-schedules" 
+              <ClientProvider>
+                <Clients />
+              </ClientProvider>
+            }
+          />
+          <Route
+            path="/create-client"
             element={
-                <ScheduleProvider>
-                  <ManageSchedules />
-                </ScheduleProvider>
-            } 
-        />
-        <Route 
-            path="/add-schedule" 
-            element={
-                <ScheduleProvider>
-                  <CreateNewSchedule />
-                </ScheduleProvider>
-            } 
-        />
+              <ClientProvider>
+                <CreateNewClient />
+              </ClientProvider>
+            }
+          />
+          <Route 
+              path="/manage-schedules" 
+              element={
+                  <ScheduleProvider>
+                    <ManageSchedules />
+                  </ScheduleProvider>
+              } 
+          />
+          <Route 
+              path="/add-schedule" 
+              element={
+                  <ScheduleProvider>
+                    <CreateNewSchedule />
+                  </ScheduleProvider>
+              } 
+          />
+          <Route 
+              path="/edit-schedule" 
+              element={
+                  <ScheduleProvider>
+                    <EditSchedule />
+                  </ScheduleProvider>
+              } 
+          />
+        </Route>
       </Routes>
     </Router>
   );

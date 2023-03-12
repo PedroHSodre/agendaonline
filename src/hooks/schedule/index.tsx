@@ -1,15 +1,26 @@
 import React, { createContext, useCallback, useContext, useEffect, useState } from "react";
 
-import { CreateScheduleBody, IScheduleData, ScheduleContextType } from "../../types/schedule";
+import { CreateScheduleBody, IScheduleData, ScheduleContextType, UpdateScheduleBody } from "../../types/schedule";
 import { orderByDate } from "../../utils/date";
 import { getSchedule, getScheduleOfToday } from "../../services/schedule";
 import api from "../../configs/api";
 import { NavigateFunction, Navigation } from "react-router-dom";
+import { toast } from "react-toastify";
+
+const initialScheduleDetailState = {
+    cellphone: '',
+    data: '',
+    id: '',
+    name: '',
+    userUuid: '',
+    uuid: ''
+}
 
 const ScheduleContext = createContext<ScheduleContextType>({
     allSchedule: [],
     scheduleOfToday: [],
-    isLoading: false
+    isLoading: false,
+    scheduleDetail: initialScheduleDetailState
 });
 
 type Props = {
@@ -21,6 +32,8 @@ export const ScheduleProvider: React.FC<Props> = ({ children }) => {
     const [scheduleOfToday, setScheduleOfToday] = useState<IScheduleData[]>([]);
     const [allSchedule, setAllSchedule] = useState<IScheduleData[]>([]);
     const [schedules, setSchedules] = useState<IScheduleData[]>([]);
+
+    const [scheduleDetail, setScheduleDetail] = useState<IScheduleData>(initialScheduleDetailState);
 
     const getSchedules = useCallback(
         async () => {
@@ -54,9 +67,11 @@ export const ScheduleProvider: React.FC<Props> = ({ children }) => {
     const createNewSchedule = async (data: CreateScheduleBody, navigate?: NavigateFunction) => {
         setIsLoading(true);
         try {
-            await api.post('/schedule/create', data);
+            const response = await api.post('/schedule/create', data);
 
             await getSchedules();
+
+            toast.success(response.data.message);
 
             if(navigate) {
                 navigate('/home');
@@ -65,10 +80,55 @@ export const ScheduleProvider: React.FC<Props> = ({ children }) => {
 
             setIsLoading(false);
         } catch(err: any) {
+            const { message } = err?.response.data;
 
             setIsLoading(false);
 
-            throw new Error(err?.message)
+            toast.error(message);
+            
+            throw new Error(message);
+        }
+    }
+
+    const handleScheduleDetail = (
+            shouldOpen: boolean, 
+            data: IScheduleData, 
+            navigate?: NavigateFunction
+        ) => {
+        if(shouldOpen) {
+            setScheduleDetail(data);
+
+            if(navigate) {
+                navigate('/edit-schedule');
+            }
+        } else {
+            setScheduleDetail(initialScheduleDetailState);
+        }
+    }
+
+    const updateSchedule = async (data: UpdateScheduleBody, navigate?: NavigateFunction) => {
+        setIsLoading(true);
+        try {
+            const response = await api.put('/schedule/update', data);
+
+            await getSchedules();
+
+            toast.success(response.data.message);
+            
+            if(navigate) {
+                navigate('/home');
+            }
+   
+
+            setIsLoading(false);
+        } catch(err: any) {
+            const { message } = err?.response.data;
+
+            setIsLoading(false);
+
+            toast.error(message);
+            
+            throw new Error(message);
         }
     }
     
@@ -78,7 +138,11 @@ export const ScheduleProvider: React.FC<Props> = ({ children }) => {
                 isLoading,
                 scheduleOfToday,
                 allSchedule,
-                createNewSchedule
+                createNewSchedule,
+                updateSchedule,
+                setScheduleDetail,
+                scheduleDetail,
+                handleScheduleDetail
             }}
         >
             {children}

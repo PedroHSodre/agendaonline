@@ -15,17 +15,23 @@ import {
 import { IScheduleData } from "../../types/schedule";
 import { useSchedule } from "../../hooks/schedule";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function MySchedule({ page }: { page?: string}) {
-    const { scheduleOfToday } = useSchedule()
-    const handleEditItem = () => {};
+    const { scheduleOfToday, handleScheduleDetail } = useSchedule()
 
     const navigate = useNavigate();
 
     const handleCreateScheduleButton = () => {
         navigate('/add-schedule');
     }
-    console.log('scheduleOfToday', scheduleOfToday)
+    
+    const handleEditSchedule = (item: IScheduleData) => {
+        if(!handleScheduleDetail) 
+            return toast.error('Ocorreu um erro, tente novamente!')
+
+        handleScheduleDetail(true, item, navigate);
+    }
     return (
         <Container>
             <Header>
@@ -36,7 +42,7 @@ export default function MySchedule({ page }: { page?: string}) {
             <ListContainer>
                     {
                         scheduleOfToday.map((item: IScheduleData) => (
-                            <ScheduleItem key={item.id} onClick={handleEditItem}>
+                            <ScheduleItem key={item.id}>
                                 <div>
                                     <Row>
                                         <Label>Cliente: </Label>
@@ -62,7 +68,7 @@ export default function MySchedule({ page }: { page?: string}) {
                                         size={32} 
                                         color="#D9D9D9" 
                                         style={{ cursor: 'pointer' }}
-                                        onClick={() => {    }}
+                                        onClick={() => handleEditSchedule(item)}
                                     />
                                 </div>
                             </ScheduleItem>

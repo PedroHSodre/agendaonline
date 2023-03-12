@@ -8,7 +8,7 @@ export const HeaderMenu = styled.div`
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    width: 75%;
+    width: 100%;
     margin: 44px auto auto auto;
     background: ${props => props.theme.colors.NEUTRAL.DARK_BLUE};   
     height: 66px;

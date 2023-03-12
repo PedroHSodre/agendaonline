@@ -6,6 +6,7 @@ export type IScheduleData =  {
     data: string
     cellphone: string
     uuid: string
+    userUuid: string
 }
 
 export type IScheduleEvent = {
@@ -18,10 +19,19 @@ export type ScheduleContextType = {
     scheduleOfToday: IScheduleData[]
     isLoading: boolean
     createNewSchedule?: (data: CreateScheduleBody, navigate: NavigateFunction) => void
+    updateSchedule?: (data: UpdateScheduleBody, navigate: NavigateFunction) => void
+    setScheduleDetail?: React.Dispatch<React.SetStateAction<IScheduleData>>
+    scheduleDetail: IScheduleData
+    handleScheduleDetail?: (shouldOpen: boolean, data: IScheduleData, navigate: NavigateFunction) => void
 }
 
 export type CreateScheduleBody = {
     name: string
     data: string
     cellphone?: string
+}
+
+export type UpdateScheduleBody = CreateScheduleBody & {
+    uuid: string
+    userUuid: string
 }

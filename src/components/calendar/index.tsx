@@ -17,7 +17,7 @@ export default function({ page }: { page:  string}) {
 
     useEffect(() => { 
         getData();
-    }, []);
+    }, [allSchedule]);
     
     const getData = async () => getEvent(orderByDate(allSchedule, 'asc'));
 

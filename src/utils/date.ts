@@ -9,6 +9,15 @@ export const formatDateToAmericanDate = (dateString: string) => {
     return americanDateString
 }
 
+export const formatDateToDateInput = (dateString: string) => {
+  const [datePart, timePart] = dateString.split(' ');
+  const [day, month, year] = datePart.split('/');
+
+  const americanDateString = `${year}-${month}-${day}T${timePart}`;
+
+  return americanDateString
+}
+
 export const  orderByDate = (items: IScheduleData[], order: 'asc' | 'desc') => {
     items.sort((a, b) => {
       const dateA: Date = new Date(a.data.replace(/(\d{2})\/(\d{2})\/(\d{4})/, '$2/$1/$3'));

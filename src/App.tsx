@@ -14,7 +14,12 @@ function App() {
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <MainRoute />
-      <ToastContainer />
+      <ToastContainer         
+        position="top-center"
+        autoClose={2000}
+        closeOnClick
+        theme="dark"
+      />
     </ThemeProvider>
   );
 }
