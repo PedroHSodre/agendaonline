@@ -8,13 +8,15 @@ import { toast } from 'react-toastify';
 import { useClient } from '../../hooks/client';
 
 export default function ClientList() {
-    const { clients } = useClient();
+    const { clients, handleClientDetail } = useClient();
     
     const navigate = useNavigate();
 
     const handleEditClient = (item: IClientData) => {
-        if(!false) 
-            return toast.error('Ocorreu um erro, tente novamente!')
+        if(!handleClientDetail) 
+            return toast.error('Ocorreu um erro, tente novamente!');
+
+        handleClientDetail(true, item, navigate);
     }
 
     return (

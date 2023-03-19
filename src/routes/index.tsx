@@ -10,6 +10,7 @@ import { PrivateOutlet } from "./privateRoute";
 import { ClientProvider } from "../hooks/client";
 import Clients from "../pages/Clients";
 import CreateNewClient from "../pages/CreateNewClient";
+import EditClient from "../pages/EditClient";
 
 export default function MainRoute() {
   return (
@@ -43,6 +44,14 @@ export default function MainRoute() {
             element={
               <ClientProvider>
                 <CreateNewClient />
+              </ClientProvider>
+            }
+          />
+          <Route
+            path="/edit-client"
+            element={
+              <ClientProvider>
+                <EditClient />
               </ClientProvider>
             }
           />
